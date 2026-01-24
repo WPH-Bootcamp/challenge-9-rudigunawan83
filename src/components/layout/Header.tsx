@@ -30,17 +30,15 @@ export default function Header() {
       : null;
 
   function handleLogout() {
-    // 1. Hapus token
-  localStorage.removeItem("access_token");
+    localStorage.removeItem("access_token");
+    queryClient.clear();
+    setOpen(false);
+    navigate("/login", { replace: true });
+  }
 
-  // 2. Clear user-related cache
-  queryClient.clear();
-
-  // 3. Tutup dropdown
-  setOpen(false);
-
-  // 4. Redirect ke login (web & mobile)
-  navigate("/login", { replace: true });
+  function goTo(path: string) {
+    setOpen(false);
+    navigate(path);
   }
 
   // Close dropdown when click outside
@@ -67,7 +65,8 @@ export default function Header() {
         <img
           src={LogoWhite}
           alt="Foody"
-          className="h-7 w-auto"
+          className="h-7 w-auto cursor-pointer"
+          onClick={() => navigate("/")}
         />
 
         {/* Right */}
@@ -126,12 +125,18 @@ export default function Header() {
 
           {/* Menu */}
           <div className="py-2">
-            <button className="w-full flex items-center gap-3 px-4 py-3 text-sm hover:bg-neutral-100">
+            <button
+              onClick={() => goTo("/profile/address")}
+              className="w-full flex items-center gap-3 px-4 py-3 text-sm hover:bg-neutral-100"
+            >
               <MapPin size={18} />
               Delivery Address
             </button>
 
-            <button className="w-full flex items-center gap-3 px-4 py-3 text-sm hover:bg-neutral-100">
+            <button
+              onClick={() => goTo("/my-orders")}
+              className="w-full flex items-center gap-3 px-4 py-3 text-sm hover:bg-neutral-100"
+            >
               <FileText size={18} />
               My Orders
             </button>

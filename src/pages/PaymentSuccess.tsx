@@ -123,7 +123,7 @@ export default function PaymentSuccess() {
           </div>
 
           <button
-            onClick={() => navigate("/orders")}
+            onClick={() => navigate("/my-orders")}
             className="w-full bg-red-600 text-white py-3 rounded-full font-medium hover:bg-red-700 transition"
           >
             See My Orders

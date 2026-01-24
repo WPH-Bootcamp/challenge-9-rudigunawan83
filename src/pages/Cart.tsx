@@ -8,7 +8,7 @@ const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
 /* ================= TYPES ================= */
 
 type CartItem = {
-  id: number; // cart item id
+  id: number;
   menu: {
     id: number;
     foodName: string;
@@ -48,7 +48,7 @@ export default function Cart() {
     });
 
     const json = await res.json();
-    setCart(json.data.cart);
+    setCart(json.data.cart || []);
   };
 
   useEffect(() => {
@@ -63,7 +63,6 @@ export default function Cart() {
 
     try {
       if (newQty === 0) {
-        // 🔥 DELETE ITEM
         await fetch(`${API_BASE_URL}/api/cart/${cartItemId}`, {
           method: "DELETE",
           headers: {
@@ -71,7 +70,6 @@ export default function Cart() {
           },
         });
       } else {
-        // 🔁 UPDATE QTY
         await fetch(`${API_BASE_URL}/api/cart/${cartItemId}`, {
           method: "PUT",
           headers: {
@@ -159,22 +157,39 @@ export default function Cart() {
               </div>
             ))}
 
-            {/* TOTAL */}
-            <div className="border-t pt-4 mt-4 text-left">
-              <p className="text-sm">Total</p>
-              <p className="font-bold">
-                Rp{group.subtotal.toLocaleString("id-ID")}
-              </p>
-            </div>
-
-            {/* CHECKOUT */}
-            <button
-              disabled={loading}
-              onClick={() => navigate("/checkout")}
-              className="mt-4 w-full bg-red-600 text-white py-3 rounded-full disabled:opacity-50"
+            {/* TOTAL + CHECKOUT */}
+            <div
+              className="
+                border-t pt-4 mt-4
+                flex flex-col gap-4
+                lg:flex-row lg:items-center lg:justify-between
+              "
             >
-              Checkout
-            </button>
+              {/* TOTAL */}
+              <div>
+                <p className="text-sm text-neutral-500">Total</p>
+                <p className="font-bold text-lg">
+                  Rp{group.subtotal.toLocaleString("id-ID")}
+                </p>
+              </div>
+
+              {/* CHECKOUT */}
+              <button
+                disabled={loading}
+                onClick={() => navigate("/checkout")}
+                className="
+                  w-full
+                  lg:w-auto
+                  bg-red-600 text-white
+                  px-8 py-3
+                  rounded-full
+                  disabled:opacity-50
+                  whitespace-nowrap
+                "
+              >
+                Checkout
+              </button>
+            </div>
           </div>
         ))}
       </main>
