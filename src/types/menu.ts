@@ -1,9 +1,9 @@
 export interface MenuItem {
-  id: string
-  name: string
-  description: string
-  price: number
-  imageUrl: string
-  rating: number
-  category: string
+  id: string; // ✅ pakai string (AMAN)
+  name: string;
+  description: string;
+  price: number;
+  imageUrl: string;
+  category: "FOOD" | "DRINK";
+  rating: number;
 }

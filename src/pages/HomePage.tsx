@@ -1,25 +1,26 @@
-import { useMenusQuery } from "@/services/queries/useMenusQuery"
+import Header from "@/components/layout/Header";
+import HeroSection from "@/components/home/HeroSection";
+import CategoryGrid from "@/components/home/CategoryGrid";
+import RecommendedList from "@/components/home/RecommendedList";
+import Footer from "@/components/layout/Footer";
 
 export default function HomePage() {
-  const { data, isLoading, error } = useMenusQuery()
-
-  if (error) {
-    return (
-      <div className="p-6 text-red-600">
-        Error load menu
-      </div>
-    )
-  }
-
   return (
-    <div className="p-6">
-      <h1 className="text-xl font-bold mb-4">Menu</h1>
+    <main className="bg-white min-h-screen">
+      <Header />
 
-      {isLoading && <p>Loading...</p>}
+      {/* Hero */}
+      <HeroSection />
 
-      {data?.map((item) => (
-        <div key={item.id}>{item.name}</div>
-      ))}
-    </div>
-  )
+      {/* Content */}
+      <section className="px-4 -mt-10 relative z-10 space-y-6">
+        <CategoryGrid />
+
+        {/* 🔥 Recommended dari API */}
+        <RecommendedList />
+      </section>
+
+      <Footer />
+    </main>
+  );
 }
