@@ -74,13 +74,13 @@ export default function LoginForm() {
           return;
         }
 
-        // ✅ SIMPAN TOKEN (PASTI STRING VALID)
+        // SIMPAN TOKEN (PASTI STRING VALID)
         localStorage.setItem("access_token", token);
 
-        toast({
-          title: "Login success",
-          description: "Welcome back 👋",
-        });
+        // toast({
+        //   title: "Login success",
+        //   description: "Welcome back 👋",
+        // });
 
         navigate("/home");
       },

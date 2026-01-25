@@ -21,7 +21,13 @@ export default function CategoryGrid() {
 
   const handleClick = (id: string) => {
     if (id === "all") {
-      navigate("/restaurants"); // ✅ INI YANG MEMANGGIL AllRestaurant.tsx
+      navigate("/restaurants"); // INI YANG MEMANGGIL AllRestaurant.tsx
+    }
+    if (id === "nearby") {
+      navigate("/restaurants/nearby"); 
+    }
+    if (id === "best-seller") {
+      navigate("/restaurants/best-seller"); 
     }
   };
 

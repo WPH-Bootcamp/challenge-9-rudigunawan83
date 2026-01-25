@@ -97,7 +97,7 @@ export default function Header() {
           src={LogoWhite}
           alt="Foody"
           className="h-7 w-auto cursor-pointer"
-          onClick={() => navigate("/")}
+          onClick={() => navigate("/home")}
         />
 
         {/* Right */}

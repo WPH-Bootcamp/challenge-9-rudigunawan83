@@ -1,11 +1,14 @@
 import { useState } from "react";
 import { Search } from "lucide-react";
+import { useNavigate } from "react-router-dom";
 
 import HeroImage from "@/assets/Hero.png";
 import { useDebounce } from "@/hooks/useDebounce";
 import { useSearchRestoQuery } from "@/services/queries/useSearchRestoQuery";
 
 export default function HeroSection() {
+  const navigate = useNavigate();
+
   const [keyword, setKeyword] = useState("");
   const debouncedKeyword = useDebounce(keyword, 300);
 
@@ -13,6 +16,17 @@ export default function HeroSection() {
     useSearchRestoQuery(debouncedKeyword, 1, 5);
 
   const restaurants = data?.data?.restaurants ?? [];
+
+  const handleClickResto = (id: number) => {
+  const token = localStorage.getItem("access_token");
+
+    if (!token) {
+        navigate("/login");
+        return;
+    }
+
+    navigate(`/restaurant/${id}`);
+    };
 
   return (
     <section
@@ -112,9 +126,17 @@ export default function HeroSection() {
             )}
 
             {restaurants.map((item: any) => (
-              <div
+              <button
                 key={item.id}
-                className="flex items-center gap-3 py-3 border-b last:border-none"
+                onClick={() => handleClickResto(item.id)}
+                className="
+                  w-full text-left
+                  flex items-center gap-3
+                  py-3 px-2
+                  rounded-lg
+                  hover:bg-neutral-100
+                  transition
+                "
               >
                 <img
                   src={item.logo}
@@ -131,10 +153,10 @@ export default function HeroSection() {
                   </p>
                 </div>
 
-                <span className="text-xs text-neutral-400">
+                <span className="text-xs text-neutral-400 whitespace-nowrap">
                   {item.distance} km
                 </span>
-              </div>
+              </button>
             ))}
           </div>
         )}

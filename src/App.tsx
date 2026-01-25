@@ -11,7 +11,8 @@ import Checkout from "@/pages/Checkout";
 import PaymentSuccess from "@/pages/PaymentSuccess";
 import MyOrders from "@/pages/MyOrders";
 import Profile from "@/pages/Profile";
-
+import NearbyRestaurants from "@/pages/NearbyRestaurants";
+import BestSellerRestaurants from "@/pages/BestSellerRestaurants";
 export default function App() {
   return (
     <Routes>
@@ -30,6 +31,8 @@ export default function App() {
       {/* Restaurant */}
       <Route path="/restaurants" element={<AllRestaurant />} />
       <Route path="/restaurant/:id" element={<RestaurantDetail />} />
+      <Route path="/restaurants/nearby" element={<NearbyRestaurants />} />
+      <Route path="/restaurants/best-seller" element={<BestSellerRestaurants />} />
 
       {/* Cart / Checkout Flow */}
       <Route path="/cart" element={<Cart />} /> 
