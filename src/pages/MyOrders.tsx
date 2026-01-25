@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { MapPin, FileText, LogOut, User } from "lucide-react";
 
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
@@ -10,7 +11,7 @@ const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
 /* ================= TYPES ================= */
 
 type UserProfile = {
-  username: string;
+  name: string;
   avatar?: string;
 };
 
@@ -59,7 +60,7 @@ export default function MyOrders() {
   const navigate = useNavigate();
   const token = localStorage.getItem("access_token");
 
-  /* ===== PROFILE (API) ===== */
+  /* ===== PROFILE ===== */
   const [profile, setProfile] = useState<UserProfile | null>(null);
 
   /* ===== ORDERS ===== */
@@ -81,25 +82,16 @@ export default function MyOrders() {
 
   useEffect(() => {
     if (!token) {
-      navigate("/my-orders", { replace: true });
+      navigate("/login", { replace: true });
       return;
     }
 
-    fetch(`${API_BASE_URL}/api/user/profile`, {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
+    fetch(`${API_BASE_URL}/api/auth/profile`, {
+      headers: { Authorization: `Bearer ${token}` },
     })
-      .then((res) => {
-        if (!res.ok) throw new Error("Unauthorized");
-        return res.json();
-      })
-      .then((json) => {
-        setProfile(json.data);
-      })
-      .catch(() => {
-        navigate("/my-orders", { replace: true });
-      });
+      .then((res) => res.json())
+      .then((json) => setProfile(json.data))
+      .catch(() => navigate("/login", { replace: true }));
   }, [token, navigate]);
 
   /* ================= LOAD ORDERS ================= */
@@ -111,9 +103,7 @@ export default function MyOrders() {
 
     fetch(
       `${API_BASE_URL}/api/order/my-order?status=${status}&page=${page}&limit=10`,
-      {
-        headers: { Authorization: `Bearer ${token}` },
-      }
+      { headers: { Authorization: `Bearer ${token}` } }
     )
       .then((res) => res.json())
       .then((json) => {
@@ -139,7 +129,7 @@ export default function MyOrders() {
 
       <main className="bg-neutral-50 min-h-screen px-4 lg:px-20 py-10">
         <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
-          {/* ================= SIDEBAR (WEB ONLY, SAME AS PROFILE) ================= */}
+          {/* ================= SIDEBAR (SAME AS PROFILE) ================= */}
           <aside className="hidden lg:block">
             <div className="bg-white rounded-2xl shadow p-5">
               {/* PROFILE HEADER */}
@@ -154,12 +144,7 @@ export default function MyOrders() {
                     👤
                   </div>
                 )}
-
-                <div>
-                  <p className="font-semibold leading-tight">
-                    {profile?.username || "User"}
-                  </p>
-                </div>
+                <p className="font-semibold">{profile?.name || "User"}</p>
               </div>
 
               <hr className="my-4" />
@@ -168,23 +153,24 @@ export default function MyOrders() {
               <ul className="space-y-3 text-sm">
                 <li
                   onClick={() => navigate("/profile/address")}
-                  className="flex items-center gap-3 px-3 py-2 rounded-lg text-neutral-700 hover:bg-neutral-100 cursor-pointer"
+                  className="flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-neutral-100 cursor-pointer"
                 >
-                  📍 <span>Delivery Address</span>
+                  📍 Delivery Address
+                  
                 </li>
 
                 <li className="flex items-center gap-3 px-3 py-2 rounded-lg bg-red-50 text-red-600 font-medium">
-                  📄 <span>My Orders</span>
+                  📄 My Orders
                 </li>
 
                 <li
                   onClick={() => {
                     localStorage.removeItem("access_token");
-                    navigate("/my-orders");
+                    navigate("/login", { replace: true });
                   }}
                   className="flex items-center gap-3 px-3 py-2 rounded-lg text-red-600 hover:bg-red-50 cursor-pointer"
                 >
-                  🚪 <span>Logout</span>
+                  🚪 Logout
                 </li>
               </ul>
             </div>
@@ -227,7 +213,7 @@ export default function MyOrders() {
                 {orders.map((order) => (
                   <div
                     key={order.id}
-                    className="bg-white rounded-2xl p-4 sm:p-6 shadow"
+                    className="bg-white rounded-2xl p-6 shadow"
                   >
                     {order.restaurants.map((r) => (
                       <div key={r.restaurant.id}>
@@ -244,7 +230,7 @@ export default function MyOrders() {
                         {r.items.map((item) => (
                           <div
                             key={item.menuId}
-                            className="flex gap-3 items-start mb-4"
+                            className="flex gap-3 mb-4"
                           >
                             <img
                               src={item.image}
@@ -262,7 +248,7 @@ export default function MyOrders() {
                           </div>
                         ))}
 
-                        <div className="border-t pt-4 mt-4 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+                        <div className="border-t pt-4 mt-4 flex justify-between items-center">
                           <div>
                             <p className="text-sm text-neutral-500">
                               Total
@@ -297,7 +283,7 @@ export default function MyOrders() {
                                 });
                                 setReviewOpen(true);
                               }}
-                              className={`w-full sm:w-auto px-6 py-3 rounded-full font-medium
+                              className={`px-6 py-3 rounded-full font-medium
                                 ${
                                   isReviewed(
                                     order.transactionId,

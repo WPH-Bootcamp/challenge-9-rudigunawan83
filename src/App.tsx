@@ -10,6 +10,7 @@ import Cart from "@/pages/Cart";
 import Checkout from "@/pages/Checkout"; 
 import PaymentSuccess from "@/pages/PaymentSuccess";
 import MyOrders from "@/pages/MyOrders";
+import Profile from "@/pages/Profile";
 
 export default function App() {
   return (
@@ -18,6 +19,9 @@ export default function App() {
       <Route path="/" element={<Navigate to="/login" replace />} />
       <Route path="/login" element={<Login />} />
       <Route path="/register" element={<Register />} />
+
+      {/* ================= PROFILE ================= */}
+      <Route path="/profile" element={<Profile />} />
 
       {/* ================= MAIN ================= */}
       <Route path="/home" element={<HomePage />} />
