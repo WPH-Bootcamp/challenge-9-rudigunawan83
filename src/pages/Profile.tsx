@@ -1,7 +1,7 @@
 import { useEffect, useMemo, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-
+import { MapPin, FileText, LogOut, User } from "lucide-react";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 
@@ -151,7 +151,7 @@ export default function Profile() {
                   />
                 ) : (
                   <div className="w-12 h-12 rounded-full bg-neutral-200 flex items-center justify-center">
-                    👤
+                    <User size={18} />
                   </div>
                 )}
                 <p className="font-semibold">{profile.name}</p>
@@ -160,22 +160,21 @@ export default function Profile() {
               <hr className="my-4" />
 
               <ul className="space-y-3 text-sm">
-                <li className="px-3 py-2 rounded-lg bg-red-50 text-red-600 font-medium">
-                  👤 Profile
+                <li className="flex items-center gap-3 px-3 py-2 rounded-lg bg-red-50 text-red-600 font-medium">
+                  <User size={18} /> Profile
                 </li>
 
                 <li
-                  onClick={() => navigate("/profile/address")}
-                  className="px-3 py-2 rounded-lg hover:bg-neutral-100 cursor-pointer"
+                  className="flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-neutral-100 cursor-pointer"
                 >
-                  📍 Delivery Address
+                  <MapPin size={18} /> Delivery Address
                 </li>
 
                 <li
                   onClick={() => navigate("/my-orders")}
-                  className="px-3 py-2 rounded-lg hover:bg-neutral-100 cursor-pointer"
+                  className="flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-neutral-100 cursor-pointer"
                 >
-                  📦 My Orders
+                   <FileText size={18} /> My Orders
                 </li>
 
                 <li
@@ -183,9 +182,9 @@ export default function Profile() {
                     localStorage.removeItem("access_token");
                     navigate("/login");
                   }}
-                  className="px-3 py-2 rounded-lg text-red-600 hover:bg-red-50 cursor-pointer"
+                  className="flex items-center gap-3 px-3 py-2 rounded-lg text-red-600 hover:bg-red-50 cursor-pointer"
                 >
-                  🚪 Logout
+                   <LogOut size={18} />  Logout
                 </li>
               </ul>
             </div>

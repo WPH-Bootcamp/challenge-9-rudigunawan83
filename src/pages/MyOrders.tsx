@@ -141,7 +141,7 @@ export default function MyOrders() {
                   />
                 ) : (
                   <div className="w-12 h-12 rounded-full bg-neutral-200 flex items-center justify-center">
-                    👤
+                  <User size={18} /> 
                   </div>
                 )}
                 <p className="font-semibold">{profile?.name || "User"}</p>
@@ -152,15 +152,14 @@ export default function MyOrders() {
               {/* MENU */}
               <ul className="space-y-3 text-sm">
                 <li
-                  onClick={() => navigate("/profile/address")}
                   className="flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-neutral-100 cursor-pointer"
                 >
-                  📍 Delivery Address
+                 <MapPin size={18} /> Delivery Address
                   
                 </li>
 
                 <li className="flex items-center gap-3 px-3 py-2 rounded-lg bg-red-50 text-red-600 font-medium">
-                  📄 My Orders
+                   <FileText size={18} /> My Orders
                 </li>
 
                 <li
@@ -170,7 +169,7 @@ export default function MyOrders() {
                   }}
                   className="flex items-center gap-3 px-3 py-2 rounded-lg text-red-600 hover:bg-red-50 cursor-pointer"
                 >
-                  🚪 Logout
+                    <LogOut size={18} /> Logout
                 </li>
               </ul>
             </div>
