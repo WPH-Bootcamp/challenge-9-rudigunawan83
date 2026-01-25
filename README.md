@@ -1,3 +1,4 @@
+[![Review Assignment Due Date](https://classroom.github.com/assets/deadline-readme-button-22041afd0340ce965d47ae6ef1cefeee28c7c493a6346c4f15d667ab976d596c.svg)](https://classroom.github.com/a/n7nQ-oYq)
 # Challenge 9 - Restaurant Web Frontend (Next JS + TypeScript)
 
 # Description
@@ -13,7 +14,7 @@ pada alur dasar: eksplor menu, filter & pencarian, keranjang, dan checkout seder
 
 # Tech Stack Wajib
 
-- Next JS + TypeScript — framework & type safety
+- React JS + TypeScript — framework & type safety
 - Tailwind CSS — styling cepat, utility-first
 - shadcn/ui — komponen UI siap pakai
 - Redux Toolkit — simpan filter, cart, dan state UI lain (client state)
