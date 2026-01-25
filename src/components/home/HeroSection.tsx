@@ -18,34 +18,32 @@ export default function HeroSection() {
   const restaurants = data?.data?.restaurants ?? [];
 
   const handleClickResto = (id: number) => {
-  const token = localStorage.getItem("access_token");
-
+    const token = localStorage.getItem("access_token");
     if (!token) {
-        navigate("/login");
-        return;
+      navigate("/login");
+      return;
     }
-
     navigate(`/restaurant/${id}`);
-    };
+  };
 
   return (
     <section
       className="
         relative w-full
-        h-[420px] md:h-[560px] lg:h-[827px]
+        h-[420px] md:h-[560px] lg:h-[820px]
         pt-14
         bg-black
       "
     >
-      {/* Background Image */}
+      {/* Background */}
       <img
         src={HeroImage}
-        alt="Hero Background"
+        alt="Hero"
         className="absolute inset-0 w-full h-full object-cover"
       />
 
-      {/* Overlay */}
-      <div className="absolute inset-0 bg-black/65" />
+      {/* Overlay (lebih cinematic di web) */}
+      <div className="absolute inset-0 bg-gradient-to-r from-black/80 via-black/60 to-black/30" />
 
       {/* Content */}
       <div
@@ -56,31 +54,34 @@ export default function HeroSection() {
           px-6 md:px-12 lg:px-24
         "
       >
-        {/* Title */}
+        {/* ================= TITLE ================= */}
         <h1
           className="
-            text-white font-extrabold tracking-tight
+            text-white
+            font-extrabold tracking-tight
             text-[32px] leading-[40px]
             md:text-[48px] md:leading-[56px]
-            lg:text-[64px] lg:leading-[72px]
-            max-w-[760px]
+            lg:text-[72px] lg:leading-[80px]
+            max-w-[820px]
           "
         >
           Explore Culinary Experiences
         </h1>
 
-        {/* Subtitle */}
+        {/* ================= SUBTITLE ================= */}
         <p
           className="
-            mt-5 text-neutral-200
+            mt-4
+            text-neutral-200
             text-sm md:text-base
-            max-w-[560px]
+            lg:text-lg
+            max-w-[600px]
           "
         >
           Search and refine your choice to discover the perfect restaurant.
         </p>
 
-        {/* Search Input */}
+        {/* ================= SEARCH ================= */}
         <div className="relative mt-10 w-full max-w-[900px]">
           <Search
             size={22}
@@ -92,21 +93,30 @@ export default function HeroSection() {
             placeholder="Search restaurants, food and drink"
             className="
               w-full
-              h-[56px] md:h-[64px]
+              h-[56px] md:h-[64px] lg:h-[68px]
               pl-14 pr-6
               rounded-full
               bg-white
-              text-base
+              text-base lg:text-lg
               outline-none
-              shadow-xl
+              shadow-2xl
               focus:ring-2 focus:ring-red-600
             "
           />
         </div>
 
-        {/* Search Result Preview */}
+        {/* ================= SEARCH RESULT ================= */}
         {debouncedKeyword && (
-          <div className="mt-4 bg-white rounded-xl shadow-lg max-w-[900px] p-4">
+          <div
+            className="
+              mt-4
+              bg-white
+              rounded-2xl
+              shadow-xl
+              max-w-[900px]
+              p-4
+            "
+          >
             {isLoading && (
               <p className="text-sm text-neutral-500">
                 Searching...
@@ -131,9 +141,9 @@ export default function HeroSection() {
                 onClick={() => handleClickResto(item.id)}
                 className="
                   w-full text-left
-                  flex items-center gap-3
-                  py-3 px-2
-                  rounded-lg
+                  flex items-center gap-4
+                  py-3 px-3
+                  rounded-xl
                   hover:bg-neutral-100
                   transition
                 "
@@ -145,10 +155,10 @@ export default function HeroSection() {
                 />
 
                 <div className="flex-1">
-                  <p className="font-medium text-sm">
+                  <p className="font-semibold text-sm lg:text-base">
                     {item.name}
                   </p>
-                  <p className="text-xs text-neutral-500">
+                  <p className="text-xs lg:text-sm text-neutral-500">
                     ⭐ {item.star} · {item.place}
                   </p>
                 </div>
